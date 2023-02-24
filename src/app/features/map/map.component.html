@@ -1,23 +1,23 @@
-<ng-container>
-  <google-map
+<google-map
     height="100vh"
     width="100%"
     [options]="options"
   >
     <map-marker
       #markerRef="mapMarker"
-      *ngFor="let marker of markers$ | async as markers"
+      *ngFor="let marker of (markers$ | async)"
       [position]="marker.position"
       [title]="marker.title"
       (mapClick)="openInfo(markerRef)">
     </map-marker>
     <map-info-window>{{selectedMarker?.getTitle()}}</map-info-window>
   </google-map>
-</ng-container>
 
 <div id="mySidenav" class="sidenav" appSidebar [isOpen]="isSideBarOpen">
   <p class="closebtn" (click)="toggleSidebar()">&times;</p>
-  <p>title: {{selectedMarker?.getTitle()}}</p>
-  <p>lat: {{selectedMarker?.getPosition()?.lat()}}</p>
-  <p>lng: {{selectedMarker?.getPosition()?.lng()}}</p>
+  <div class="content">
+    <p>title: {{selectedMarker?.getTitle()}}</p>
+    <p>lat: {{selectedMarker?.getPosition()?.lat()}}</p>
+    <p>lng: {{selectedMarker?.getPosition()?.lng()}}</p>
+  </div>
 </div>

@@ -43,11 +43,13 @@ export class LocationsListComponent {
     },
   ];
 
+  // method to handle the sort event
   sortChange(index: number) {
     this.resetColumns(index);
     this.setActiveColumn(index);
   }
 
+  // method to reset the direction of all columns except the active one
   resetColumns(i: number) {
     this.columnsToDisplay.forEach((column, index) => {
       if (index !== i) {
@@ -55,7 +57,7 @@ export class LocationsListComponent {
       }
     });
   }
-
+  // method to set the active column for styling column adn emi sort event
   setActiveColumn(index: number) {
     const column = this.columnsToDisplay[index];
     column.direction === '' || column.direction === 'desc' ? column.direction = 'asc' : column.direction = 'desc';

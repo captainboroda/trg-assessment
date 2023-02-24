@@ -1,0 +1,12 @@
+.location-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 100px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .location-container {
+    padding: 0;
+  }
+}

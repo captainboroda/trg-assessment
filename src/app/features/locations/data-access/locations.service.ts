@@ -15,11 +15,13 @@ LocationsService {
   readonly sort$ = this.sort.asObservable();
 
   private pagination = new BehaviorSubject<{ page: number, size: number }>({ page: 1, size: 10 });
-  readonly pagination$ = this.pagination.asObservable();
+  private readonly pagination$ = this.pagination.asObservable();
 
   private locations = new BehaviorSubject<ILocation[]>([]);
   readonly locations$ = this.locations.asObservable();
 
+
+  // stream of paginated and sorted locations, with pagination info
   readonly vm$: Observable<{
     data: ILocation[],
     pagination: IPagination
@@ -36,33 +38,27 @@ LocationsService {
     }
   ));
 
+  //it is impossible to edit location because there is no unique identifier for location. we can no rely on index because it can change after sorting or pagination
   constructor() {
     this.getAllLocations().subscribe((locations) => this.locations.next(locations));
   }
 
+  //method to add a new location to stream;
   addLocation(location: ILocation) {
     this.locations.next([location, ...this.locations.getValue()]);
   }
 
+  //method to trigger sorting
   sortLocations(sort: SortableColumn) {
     this.sort.next(sort);
   }
 
+  //method to trigger pagination
   changePage(page: number) {
     this.pagination.next({ ...this.pagination.getValue(), page });
   }
-  //
-  // deleteLocation(location: ILocation) {
-  //   this.locations.next(this.locations.getValue().filter((l) => l !== location));
-  // }
 
-  // editLocation(location: ILocation) {
-  //   const locations = this.locations.getValue();
-  //   const index = locations.findIndex((l) => l === location);
-  //   locations[index] = location;
-  //   this.locations.next(locations);
-  // }
-
+  // http call to get locations and maap to proper type
   private getAllLocations() {
     return inject(HttpClient).get<{
       name: string,
@@ -75,10 +71,12 @@ LocationsService {
       })));
   }
 
+  //get total number of locations
   private locationsLength() {
     return this.locations.getValue().length;
   }
 
+  // method to sort locations
   private sortPaginated(paginated: ILocation[], sort: SortableColumn) {
     return paginated.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
@@ -91,14 +89,16 @@ LocationsService {
     });
   }
 
+  //method to compare values of sorted locations
   private compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
-
+  //method to paginate locations
   private paginator(source: ILocation[], size: number, page: number) {
     return source.slice((page - 1) * size, page * size);
   }
 
+  //method to return amount of locations to display in pagination bar
   private paginationItems() {
     const rounded = Math.ceil(this.locationsLength() / this.pagination.getValue().size);
     return Array.from({ length: rounded }, (_, i) => i + 1);
