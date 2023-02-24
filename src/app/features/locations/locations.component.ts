@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { AddLocationFormComponent } from './UI/add-location-form/add-location-form.component';
 import { LocationsListComponent } from './UI/locations-list/locations-list.component';
 import { LocationsService } from './data-access/locations.service';
@@ -11,13 +11,16 @@ import { PaginatorComponent } from './UI/paginator/paginator.component';
   selector: 'app-locations',
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
+    NgIf,
+    AsyncPipe,
     AddLocationFormComponent,
     LocationsListComponent,
     PaginatorComponent
   ],
   templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.scss']
+  styleUrls: ['./locations.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationsComponent {
 

@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ILocation } from '../../../interfaces/location.interface';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { SortDirection } from '@angular/material/sort';
 import { SortableColumn } from '../../../utils/sortable-column';
 import { IPagination } from '../../../utils/pagination.interface';
 
