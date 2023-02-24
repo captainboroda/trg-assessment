@@ -1,0 +1,12 @@
+<table id="myTable">
+  <tr>
+    <th *ngFor="let column of columnsToDisplay; let i = index" (click)="sortChange(i)">
+      {{column.label}}
+      {{column.direction === 'asc' ? '&uarr;' : column.direction === 'desc' ? '&darr;' : ''}}</th>
+  </tr>
+  <tr *ngFor="let location of locations">
+    <td>{{location.name}}</td>
+    <td>{{location.coordinates[0]}}</td>
+    <td>{{location.coordinates[1]}}</td>
+  </tr>
+</table>

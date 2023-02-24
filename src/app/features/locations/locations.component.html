@@ -1,1 +1,8 @@
 <p>locations works!</p>
+
+<app-add-location-form (onAdd)="onAdd($event)"  />
+
+<ng-container *ngIf="(vm$ | async) as vm">
+  <app-locations-list [locations]="vm.data" (onSort)="onSort($event)"/>
+  <app-paginator (pageChange)="onPageChange($event)" [data]="vm.pagination" />
+</ng-container>

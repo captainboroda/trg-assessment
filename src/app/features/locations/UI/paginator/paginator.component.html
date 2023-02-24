@@ -1,0 +1,9 @@
+<div class="pagination-container" *ngIf="data">
+  <div class="pagination">
+    <p>&laquo;</p>
+    <p *ngFor="let page of data.pages"
+       [ngClass]="{'active' : data.activePage === page}"
+       (click)="onPageChange(page)">{{page}}</p>
+    <p>&raquo;</p>
+  </div>
+</div>
