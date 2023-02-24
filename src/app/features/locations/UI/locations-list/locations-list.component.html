@@ -6,7 +6,7 @@
   </tr>
   <tr *ngFor="let location of locations">
     <td>{{location.name}}</td>
-    <td>{{location.coordinates[0]}}</td>
-    <td>{{location.coordinates[1]}}</td>
+    <td>{{location.coordinates.lat}}</td>
+    <td>{{location.coordinates.lng}}</td>
   </tr>
 </table>

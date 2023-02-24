@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ILocation } from '../../../../interfaces/location.interface';
 import {  NgFor } from '@angular/common';
-import { SortableColumn } from '../../../../utils/sortable-column';
+import { SortableColumn } from '../../../../interfaces/sortable-column';
 import { PaginatorComponent } from '../paginator/paginator.component';
 
 @Component({

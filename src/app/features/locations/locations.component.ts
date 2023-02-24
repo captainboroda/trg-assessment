@@ -4,7 +4,7 @@ import { AddLocationFormComponent } from './UI/add-location-form/add-location-fo
 import { LocationsListComponent } from './UI/locations-list/locations-list.component';
 import { LocationsService } from './data-access/locations.service';
 import { ILocation } from '../../interfaces/location.interface';
-import { SortableColumn } from '../../utils/sortable-column';
+import { SortableColumn } from '../../interfaces/sortable-column';
 import { PaginatorComponent } from './UI/paginator/paginator.component';
 
 @Component({

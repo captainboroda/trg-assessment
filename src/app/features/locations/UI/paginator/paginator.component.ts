@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IPagination } from '../../../../utils/pagination.interface';
+import { IPagination } from '../../../../interfaces/pagination.interface';
 
 @Component({
   selector: 'app-paginator',

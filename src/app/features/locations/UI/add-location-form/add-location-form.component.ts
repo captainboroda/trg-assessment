@@ -32,7 +32,10 @@ export class AddLocationFormComponent {
 
     const obj: ILocation = {
       name: this.addLocationForm.value.name,
-      coordinates: [Number(this.addLocationForm.value.coordinates.lat), Number(this.addLocationForm.value.coordinates.lng)]
+      coordinates: {
+        lat: Number(this.addLocationForm.value.coordinates.lat),
+        lng: Number(this.addLocationForm.value.coordinates.lng)
+      }
     }
 
     this.onAdd.emit(obj);

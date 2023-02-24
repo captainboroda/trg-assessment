@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ILocation } from '../../../interfaces/location.interface';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { SortableColumn } from '../../../utils/sortable-column';
-import { IPagination } from '../../../utils/pagination.interface';
+import { SortableColumn } from '../../../interfaces/sortable-column';
+import { IPagination } from '../../../interfaces/pagination.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +64,15 @@ LocationsService {
   // }
 
   private getAllLocations() {
-    return inject(HttpClient).get<ILocation[]>('assets/locations.json');
+    return inject(HttpClient).get<{
+      name: string,
+      coordinates: [number, number]
+    }[]>('assets/locations.json')
+      .pipe(
+        map((locations) => locations.map((location) => {
+          const [lat, lng] = location.coordinates;
+          return {...location, coordinates: { lat, lng}};
+      })));
   }
 
   private locationsLength() {
@@ -76,8 +84,8 @@ LocationsService {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'latitude': return this.compare(a.coordinates[0], b.coordinates[0], isAsc);
-        case 'longitude': return this.compare(a.coordinates[1], b.coordinates[1], isAsc);
+        case 'latitude': return this.compare(a.coordinates.lat, b.coordinates.lat, isAsc);
+        case 'longitude': return this.compare(a.coordinates.lng, b.coordinates.lng, isAsc);
         default: return 0;
       }
     });
